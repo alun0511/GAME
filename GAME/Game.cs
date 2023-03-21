@@ -11,7 +11,15 @@ namespace DanteGame
             new Map(40, 20, "Treachery"),
             new Map(40, 20, "Fraud"),
             new Map(40, 20, "Violence"),
+            new Map(40, 20, "Heresy"),
+            new Map(40, 20, "Wrath"),
+            new Map(40, 20, "Greed"),
+            new Map(40, 20, "Gluttony"),
+            new Map(40, 20, "Lust"),
+            new Map(40, 20, "Limbo"),
         };
+
+        
 
         public Player dante = new Player(20, 5);
         public Goal door = new Goal(3, 10);
@@ -44,7 +52,7 @@ namespace DanteGame
                     }
                     else if (col == dante.X && row == dante.Y)
                     {
-                        Console.Write("*");
+                        Console.Write("◊");
                     }
                     else if (row == door.X && col == door.Y)
                     {
@@ -110,10 +118,10 @@ namespace DanteGame
             while (Running)
             {
                 Console.WriteLine("Welcome to hell, Dante! Use the arrows to start climbing. Beware of the flames!");
-                Console.WriteLine("Dante = '*'");
+                Console.WriteLine("Dante = '◊'");
                 Console.WriteLine("Way out = '-'");
 
-                while (level < 3)
+                while (level < 9)
                 {
                     foreach (var map in maps)
                     {
