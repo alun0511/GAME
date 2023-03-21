@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Game
+namespace DanteGame
 {
     public class Map
     {
@@ -9,7 +9,7 @@ namespace Game
         public string Name { get; set; }
         //public Goal Goal { get; set; }
         //public Player Player { get; set; }
-        //public bool Completed { get; set; }
+        public bool Completed { get; set; }
 
         public Map(
             int width,

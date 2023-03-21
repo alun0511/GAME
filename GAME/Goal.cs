@@ -1,20 +1,18 @@
 ﻿using System;
-namespace Game
+namespace DanteGame
 {
 	public class Goal
 	{
 
         public int X { get; set; }
         public int Y { get; set; }
-        public string Display { get; set; }
 
 
 
-        public Goal(int x, int y, string display)
+        public Goal(int x, int y)
         {
             X = x;
             Y = y;
-            Display = display;
 
         }
 
