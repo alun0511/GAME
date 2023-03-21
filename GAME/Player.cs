@@ -1,13 +1,8 @@
 ﻿using System;
-namespace Game
+namespace DanteGame
 {
     public class Player
     {
-
-        //var x = roomWidth / 2;
-        //var y = roomHeight / 2;
-
-
 
         public int X { get; set; }
         public int Y { get; set; }
@@ -18,13 +13,6 @@ namespace Game
             X = x;
             Y = y;
         }
-
-        //public void getPos(Map map)
-        //{
-        //    X = map.Height / 2;
-        //    Y = map.Width / 2;
-        //}
-
 
     }
 
