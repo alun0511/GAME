@@ -30,7 +30,9 @@ namespace Game
                     {
                         if (row == goal.X && col == goal.Y && col == player.X && row == player.Y)
                         {
+                            map.Completed = true;
                             goal.Completed = true;
+
                         }
 
 
@@ -58,7 +60,7 @@ namespace Game
                      Console.WriteLine();
                 }
 
-                //    // read user input and update character position
+                // read user input and update character position
 
                 var input = Console.ReadKey(true).Key;
                 switch (input)
