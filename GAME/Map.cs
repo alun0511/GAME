@@ -18,65 +18,63 @@ namespace Game
             Player = player;
         }
 
-        public void draw()
+        public void draw(Map map, Player player, Goal goal)
         {
-            Console.Clear();
-
-            while (true)
+            while (!goal.Completed)
             {
                 Console.Clear(); // clear the console before drawing the character
-                Completed = false;
 
-                for (var row = 0; row < Height; row++)
+                for (var row = 0; row < map.Height; row++)
                 {
-                    for (var col = 0; col < Width; col++)
+                    for (var col = 0; col < map.Width; col++)
                     {
-                        if (row == Goal.X && col == Goal.Y && col == Player.X && row == Player.Y)
+                        if (row == goal.X && col == goal.Y && col == player.X && row == player.Y)
                         {
-                            Console.WriteLine($"You went through the {Goal.Display}");
-                            Completed = true;
+                            goal.Completed = true;
                         }
 
 
-
-                        if (row == 0 || row == Height - 1 || col == 0 || col == Width - 1)
+                        if (row == 0 || row == map.Height - 1 || col == 0 || col == map.Width - 1)
                         {
                             Console.Write(".");
                         }
-                        else if (col == Player.X && row == Player.Y)
+                        else if (col == player.X && row == player.Y)
                         {
                             Console.Write("*");
                         }
-                        else if (row == Goal.X && col == Goal.Y)
+                        else if (row == goal.X && col == goal.Y)
                         {
-                            Console.Write($"{Goal.Display}");
+                            Console.Write($"{goal.Display}");
                         }
 
                         else
                         {
                             Console.Write(" ");
+
                         }
 
-                            //    // read user input and update character position
-                            var input = Console.ReadKey(true).Key;
-                            switch (input)
-                            {
-                                case ConsoleKey.LeftArrow:
-                                    if (Player.X > 1) Player.X--;
-                                    break;
-                                case ConsoleKey.RightArrow:
-                                    if (Player.X < Width - 2) Player.X++;
-                                    break;
-                                case ConsoleKey.UpArrow:
-                                    if (Player.Y > 1) Player.Y--;
-                                    break;
-                                case ConsoleKey.DownArrow:
-                                    if (Player.Y < Height - 2) Player.Y++;
-                                    break;
-                            }
-
                     }
-                    Console.WriteLine();
+
+                     Console.WriteLine();
+                }
+
+                //    // read user input and update character position
+
+                var input = Console.ReadKey(true).Key;
+                switch (input)
+                {
+                    case ConsoleKey.LeftArrow:
+                        if (player.X > 1) player.X--;
+                        break;
+                    case ConsoleKey.RightArrow:
+                        if (player.X < map.Width - 2) player.X++;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        if (player.Y > 1) player.Y--;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (player.Y < map.Height - 2) player.Y++;
+                        break;
                 }
 
             }

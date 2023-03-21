@@ -2,15 +2,11 @@
 
 //player and goal are assigned coordinates, map is assigned height and width as well as which objects to draw
 
-var dante = new Player(10, 20);
-var door = new Goal(3, 10, "Door");
+var dante = new Player(20, 10);
+var door = new Goal(3, 10, "Door", false);
 var limbo = new Map(40, 20, door, dante);
 
-limbo.draw();
-
-
-
-
+limbo.draw(limbo, dante, door);
 
 
 
