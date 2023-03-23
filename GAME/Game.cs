@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Numerics;
 using DanteGame;
 
@@ -17,18 +18,16 @@ namespace DanteGame
             new Map(40, 20, "Fraud"),
             new Map(40, 20, "Violence"),
             new Map(40, 20, "Heresy"),
-            new Map(40, 20, "Wrath"),
-            new Map(40, 20, "Greed"),
-            new Map(40, 20, "Gluttony"),
-            new Map(40, 20, "Lust"),
-            new Map(40, 20, "Limbo"),
+            //new Map(40, 20, "Wrath"),
+            //new Map(40, 20, "Greed"),
+            //new Map(40, 20, "Gluttony"),
+            //new Map(40, 20, "Lust"),
+            //new Map(40, 20, "Limbo"),
         };
 
-
-
-        //public Bridge Treachery = new Bridge("Treachery");
         public Player player = new Player(20, 5);
         public Goal goal = new Goal(3, 10);
+
 
         public void Load()
         {
@@ -38,23 +37,16 @@ namespace DanteGame
             goal.Y = 20;
         }
 
-        public int[,] bridgeCoords = new int[,] {
-        {18, 20}, {18, 19}, {17, 19}, {16, 19}, {16, 18}, {16, 17}, {16, 16}, {16, 15}, {15, 15}, {14, 15},
-        {14, 14}, {14, 13}, {15, 13}, {16, 13}, {16, 12}, {16, 11}, {16, 10}, {15, 10}, {14, 10}, {13, 10},
-        {13, 9}, {13, 8}, {13, 7}, {14, 7}, {15, 7}, {16, 7}, {17, 7}, {17, 6}, {17, 5}, {17, 4}, {16, 4},
-        {15, 4}, {14, 4}, {13, 4}, {13, 3}, {13, 2}, {12, 2}, {11, 2}, {11, 1}, {10, 1}, {9, 1}, {9, 2}, {9, 3},
-        {9, 4}, {8, 4}, {7, 4}, {7, 5}, {7, 6}, {6, 6}, {5, 6}, {5, 5}, {5, 4}, {4, 4}, {3, 4}, {2, 4},{2, 5},
-        {2, 6}, {2, 7}, {2, 8}, {2, 9}, {2, 10},{3, 10},{4, 10}, {4, 11 }, {4, 12}, {4, 13}, {4, 14}, {4, 15},
-        {4, 16},{4, 17},{4, 18}, {4, 19}, {4, 20}, {3, 20}, {2, 20}
-
-        };
-
-
+        int deathCount = 0;
 
         public void Draw(Map map)
         {
+            
+            var bridgeCoords = map.Coordinates(map.Name);
+
             Console.Clear();
             Console.WriteLine($" --- {map.Name} --- ");
+
 
             for (var row = 0; row < map.Height; row++)
             {
@@ -73,55 +65,58 @@ namespace DanteGame
                     }
                     if (isBridge && row == player.Y && col == player.X)
                     {
-                        Console.Write("◊"); // print character if it's on a bridge tile
+                        Console.Write("◊"); // Prints character if it's on a bridge tile.
                     }
                     else if (isBridge)
                     {
-                        Console.Write(" ");
+                        Console.Write(" "); // Prints bridge
                     }
                     else if (row == goal.X && col == goal.Y && col == player.X && row == player.Y)
                     {
-                        map.Completed = true;
+                        map.Completed = true; // Evaluates if player has reached goal and completes map if true.
 
                     }
                     else if (!isBridge && row == player.Y && col == player.X)
                     {
-                        Console.Write("X");
+                        Console.Write("X"); // Marks the where the player died, increments deathcounter and resets coordinates to start.
+                        deathCount++;       
                         Load();
                     }
 
                     else if (row == 0 || row == map.Height - 1 || col == 0 || col == map.Width - 1)
                     {
-                        Console.Write(".");
+                        Console.Write("."); // Prints borders.
                     }
                     else if (col == player.X && row == player.Y)
                     {
-                        Console.Write("◊");
+                        Console.Write("◊"); // Prints the player (Dante).
 
                     }
                     else if (row == goal.X && col == goal.Y)
                     {
-                        Console.Write($"-");
+                        Console.Write($"-"); // Prints the goal.
                     }
                     else
                     {
-                        Console.Write("o");
+                        Console.Write("o"); // Prints "flames" of death.
 
                     }
                 }
-
                 Console.WriteLine();
+                
             }
+            Console.WriteLine($"Deathcount: {deathCount}");
         }
 
             public void Update(Map map)
             {
-
+                // Update() is called on each level as long as the map isnt completed.
+                // It updates the state of the map with the new player position given by the input of the player.
 
                 var input = Console.ReadKey(true).Key;
-
                 switch (input)
                 {
+                    
                     case ConsoleKey.LeftArrow:
                         if (player.X > 1) player.X--;
                         break;
@@ -140,40 +135,52 @@ namespace DanteGame
 
             public void StartLevel(Map map)
             {
-
+                // Starts the level, updates and draws the map.
                 while (!map.Completed)
                 {
-                    Update(map);
                     Draw(map);
+                    Update(map);
                 }
                 
             }
 
             public void Run()
             {
+                // Final command to start the game.
+                // Running is true until all maps have been completed.
                 Running = true;
+
+                DateTime TimeAtStart = DateTime.Now;
 
                 int level = 1;
 
-            while (Running)
-            {
-                Console.WriteLine("Welcome to hell, Dante! Use the arrows to start climbing. Beware of the flames!");
-                Console.WriteLine("Dante = '◊'");
-                Console.WriteLine("Way out = '-'");
-
-                while (level < 9)
+                while (Running)
                 {
-                    foreach (var map in maps)
+
+                    
+
+                    while (level < 9)
                     {
-                        Load();
-                        StartLevel(map);
-                        level++;
+
+                        foreach (var map in maps)
+                        {
+                            Load();
+                            StartLevel(map);
+                            level++;
+                        }
+
+
                     }
-                }
-                Console.Clear();
-                Console.WriteLine("Congratulations, you beat hell!");
-                Running = false;
-                }
+
+                    DateTime TimeAtEnd = DateTime.Now;
+                    TimeSpan GameTime = TimeAtEnd - TimeAtStart;
+
+                    Console.Clear();
+                    Running = false;
+                    Console.WriteLine($"Congratulations, you beat hell in {GameTime.Hours} hours, {GameTime.Minutes} minutes, {GameTime.Seconds} seconds and {GameTime.Milliseconds} milliseconds!");
             }
+        }
     }
 }
+
+
