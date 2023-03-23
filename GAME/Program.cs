@@ -1,7 +1,8 @@
 ﻿using DanteGame;
 
-Console.ForegroundColor = ConsoleColor.White;
-Console.BackgroundColor = ConsoleColor.Black;
+
+Console.ForegroundColor = ConsoleColor.Yellow;
+Console.BackgroundColor = ConsoleColor.DarkRed;
 
 
 var game = new Game();
