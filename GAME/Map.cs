@@ -27,7 +27,6 @@ namespace DanteGame
         //      "Fraud",        2
         //      "Violence",     3
         //      "Heresy",       4
-        //      "Wrath",        5
 
         public Bridge Treachery = new Bridge("Treachery", new int[,] { { 2, 20 }, { 3, 20 }, { 4, 20 }, { 5, 20 }, { 6, 20 }, { 7, 20 }, { 8, 20 }, { 9, 20 }, { 10, 20 }, { 11, 20 }, { 12, 20 }, { 13, 20 }, { 14, 20 }, { 15, 20 }, { 16, 20 }, { 17, 20 }, { 18, 20 } });
 
@@ -54,7 +53,7 @@ namespace DanteGame
                     {2, 6}, {2, 7}, {2, 8}, {2, 9}, {2, 10},{3, 10},{4, 10}, {4, 11 }, {4, 12}, {4, 13}, {4, 14}, {4, 15},
                     {4, 16},{4, 17},{4, 18}, {4, 19}, {4, 20}, {3, 20}, {2, 20}});
 
-    public int[,] Coordinates(string Name)
+        public int[,] Coordinates(string Name)
         {
 
             var BridgeList = new List<Bridge>() {
@@ -63,14 +62,16 @@ namespace DanteGame
                 Violence,
                 Heresy,
             };
-            while (true) { 
-            foreach (var bridge in BridgeList)
-            {
-                    if (Name == bridge.Name)
-                    {
-                        return bridge.Coordinates;
-                    }
-            }
+
+            while (true)
+            { 
+                foreach (var bridge in BridgeList)
+                {
+                        if (Name == bridge.Name)
+                        {
+                            return bridge.Coordinates;
+                        }
+                }
             }
         }
 

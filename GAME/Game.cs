@@ -18,11 +18,6 @@ namespace DanteGame
             new Map(40, 20, "Fraud"),
             new Map(40, 20, "Violence"),
             new Map(40, 20, "Heresy"),
-            //new Map(40, 20, "Wrath"),
-            //new Map(40, 20, "Greed"),
-            //new Map(40, 20, "Gluttony"),
-            //new Map(40, 20, "Lust"),
-            //new Map(40, 20, "Limbo"),
         };
 
         public Player player = new Player(20, 5);
